@@ -1,0 +1,8 @@
+context: remote
+browser: chrome
+
+host: https://gauchazh.clicrbs.com.br/
+
+logging:
+  level:
+    ROOT: ERROR
