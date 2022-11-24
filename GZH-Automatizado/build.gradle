@@ -109,7 +109,7 @@ test.finalizedBy generateReport
 dockerCompose.isRequiredBy test
 
 dockerCompose {
-    useComposeFiles = ['docker-compose.yaml']
+    useComposeFiles = ['compose.yaml']
     scale = [chrome: 2]
 }
 

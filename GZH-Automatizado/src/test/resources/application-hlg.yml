@@ -1,11 +1,11 @@
 context: remote
 browser: chrome
 
-site: https://gauchazh.clicrbs.com.br/
+site: https://url-de-homologacao.com.br/
 
 
 
-ambiente: PRD
+ambiente: HLG
 
 logging:
   level:

@@ -1,4 +1,4 @@
-# Automatizado GZH WEB 
+# Template Automatizado WEB Cucumer Docker/Kubernetes 
 
 ## Table of Contents
 
@@ -10,9 +10,9 @@
 
 ## Autores
 
-- [Geibson Lehugeur](https://linkedin.com/)
-- [Jeferson Gonçalves](https://linkedin.com/)
-- [Giullia Telles](https://linkedin.com/)
+- [Geibson Lehugeur](https://www.linkedin.com/in/geibson-lehugeur/)
+- [Jeferson Gonçalves](https://www.linkedin.com/in/jefgoncalves/)
+- [Giullia Telles](https://www.linkedin.com/in/giullia-cardoso-telles/)
 
 ## Pré-requisitos
 
@@ -24,14 +24,14 @@ Devem estar instalados na maquina para a execução dos testes.
 * [Kubernetes](https://kubernetes.io/)
 * [Containerd](https://containerd.io/)
 * [Minikube](https://minikube.sigs.k8s.io/docs/)
-* [Docker](https://www.docker.com/)`Deprecated`
+* [Docker](https://www.docker.com/)
 * [Direitos de administrador da maquina]()
 
 
 ## Libraries
 
 * [Cucumber](https://cucumber.io/) - Utilizado para o Behavior-Driven Development (BDD).
-* [Selenium WebDriver](https://www.selenium.dev/documentation/en/webdriver/) - COntrola o browser para a execução dos testes.
+* [Selenium WebDriver](https://www.selenium.dev/documentation/en/webdriver/) - Controla o browser para a execução dos testes.
 * [Hamcrest](http://hamcrest.org/JavaHamcrest/tutorial) - a framework for writing matcher objects allowing `match` rules to be defined declaratively.
 
 ## Plugins para a IDEA
@@ -53,10 +53,15 @@ Para a execução do perfil `default` só e necessario executar o comando abaixo
 ```
 ./gradlew test
 ```
-Para executar os testes em `PRD` utilizando o perfil `prd` a variavel de ambiente `SPRING_PROFILES_ACTIVE` precisa ser determinada com o comando abaixo:
+Para executar os testes em `Homologaçao` utilizando o perfil `hlg` a variavel de ambiente `SPRING_PROFILES_ACTIVE` precisa ser determinada com o comando abaixo:
 ```
-SPRING_PROFILES_ACTIVE=prd ./gradlew test
+SPRING_PROFILES_ACTIVE=hlg ./gradlew test
 ```
+Para executar os testes utilizando as tags do cucumber o comando abaixo deve ser executado:
+```
+gradle test -Dcucumber.options="--tags @tdc"
+```
+
 
 ### Contexto
 Pode ser rodado localmente `local` (usa o Chrome) ou `remote` (nos Docker containers). O valor default é `remote`, para rodar `local` a propriedade `context` precisa ser alterada para `local`. o `docker-compose` e requisito para toda a execução mesmo localmente pode ser executado pela linha de comando com o seguinte comando.
@@ -83,9 +88,11 @@ No `application.yml` substitua a propriedade `context` to `local`.
 ### Remote (Kubernetes - Containerd - Minikube) 
 No arquivo `application.yml` a propriedade `context` e `remote`.
 
-Minikube, Kubectl and Docker já instalados na máquina.
+Minikube, Kubectl e Docker já instalados na máquina.
 
 Criando e iniciando os nodos para teste atráves do terminal:
+
+As variáveis `ADDRESS` e `SELENIUM_PORT` devem ser atualizadas no arquivo `WebDriverManager`.
 
 Iniciando o Minikube
 
@@ -103,7 +110,7 @@ Verificando o Dashboard do Kubernetes
 
     minikube dashboard 
 
-Os comandos abaxo devem ser executados pelo terminal na pasta `automatizado-gzh/src/test/resources`
+Os comandos abaixo devem ser executados pelo terminal na pasta `automatizado-gzh/src/test/resources`
 
 Deploy Selenium Hub no POD do Kubernetes
 
@@ -136,7 +143,7 @@ Deletando o Minikube
 
     minikube delete
 
-### Remote (Docker) `Deprecated`
+### Remote (Docker) 
 No arquivo `application.yml` a propriedade `context` e `remote`.
 
 Execute o comando `up` para rodar os containers do docker executando o comando:
@@ -144,7 +151,7 @@ Execute o comando `up` para rodar os containers do docker executando o comando:
 docker-compose up -d --scale firefox=2 --scale chrome=2 --scale edge=2
 ```
 
-* Right-click no feature file e selecione `Run 'Feature: login'`; ou
+* Right-click no feature file e selecione `Run 'Feature: gzhSiteNavigation'`; ou
 * Right-click no CucumberRunner.java file e selecione `Run 'CucumberRunner'`.
 
 Deligue o container docker depois do teste executando o comando:
