@@ -1,7 +1,14 @@
 context: remote
 browser: chrome
 
-host: https://gauchazh.clicrbs.com.br/
+site: https://gauchazh-hlg.clicrbs.com.br/
+edit: https://edit-hlg.rbscloud.net/v2/article/
+  #https://edit.hlg.rbscloud.net
+  #https://login.microsoftonline.com/
+  #https://edit-hlg.rbs.com.br/login/
+
+
+ambiente: HLG
 
 logging:
   level:

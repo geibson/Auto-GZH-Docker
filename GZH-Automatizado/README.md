@@ -1,94 +1,163 @@
-# Demo Spring Selenium Automation Project
+# Automatizado GZH WEB 
 
 ## Table of Contents
 
-- [Authors](#authors)
-- [Pre-requisites](#pre-requisites)
+- [Autores](#Autores)
+- [Pré-requisitos](#pré-requisitos)
 - [Libraries](#libraries)
-- [Running Tests](#running-tests)
-- [Running Through IntelliJ](#running-through-intellij)
+- [Executando Testes](#Executando Testes)
 
-## Authors
-* [Soraia Reis](https://github.com/soraiareis)
 
-## Pre-requisites
+## Autores
 
-You should download and install these properly on your system. Visit the websites (linked) to find instructions on how to set them up.
+- [Geibson Lehugeur](https://linkedin.com/)
+- [Jeferson Gonçalves](https://linkedin.com/)
+- [Giullia Telles](https://linkedin.com/)
+
+## Pré-requisitos
+
+Devem estar instalados na maquina para a execução dos testes.
 
 * [Java](https://www.java.com/en/download/)
 * [Gradle](https://gradle.org/)
 * [Firefox](https://www.mozilla.org/)
-* [Docker](https://www.docker.com/)
+* [Kubernetes](https://kubernetes.io/)
+* [Containerd](https://containerd.io/)
+* [Minikube](https://minikube.sigs.k8s.io/docs/)
+* [Docker](https://www.docker.com/)`Deprecated`
+* [Direitos de administrador da maquina]()
+
 
 ## Libraries
 
-* [Cucumber](https://cucumber.io/) - library used to support Behavior-Driven Development (BDD).
-* [Selenium WebDriver](https://www.selenium.dev/documentation/en/webdriver/) - drives a browser natively, as a real user would, either locally or on remote machines.
+* [Cucumber](https://cucumber.io/) - Utilizado para o Behavior-Driven Development (BDD).
+* [Selenium WebDriver](https://www.selenium.dev/documentation/en/webdriver/) - COntrola o browser para a execução dos testes.
 * [Hamcrest](http://hamcrest.org/JavaHamcrest/tutorial) - a framework for writing matcher objects allowing `match` rules to be defined declaratively.
 
-## Running Tests
+## Plugins para a IDEA
+Plugins utilizados no Intellij para desenvolver o projeto
+
+* Cucumber +
+* Cucumber for Java
+* Docker
+* Docker Registry Explorer
+* Gherkin
+* GitToolsBox
+* Tabnine AI Code Completion-JS, Java, Python, TS, Rust, Go, PHP & More
+
+## Executando Testes
 
 ### Spring Profile
-You can run either `default` or `test` profiles. The `default` runs on the URL `https://soraia.herokuapp.com`, and the `test` runs on `http://the-internet.herokuapp.com`.
 
-For the `default` profile you just need to execute Gradle `test` task.
+Para a execução do perfil `default` só e necessario executar o comando abaixo. 
 ```
 ./gradlew test
 ```
-
-To execute the `test` profile the environment variable `SPRING_PROFILES_ACTIVE` should be set. The following command line should be used:
+Para executar os testes em `PRD` utilizando o perfil `prd` a variavel de ambiente `SPRING_PROFILES_ACTIVE` precisa ser determinada com o comando abaixo:
 ```
-SPRING_PROFILES_ACTIVE=test ./gradlew test
+SPRING_PROFILES_ACTIVE=prd ./gradlew test
 ```
 
-### Context
-You can either run `local` (Firefox is used) or `remote` (in Docker containers). The default value is `remote`, but for `local` execution the `context` property should be set as `local`. However, the `docker-compose` is set as required every time the test task is executed, so passing `context` as `local` will bring up the Docker containers anyway, even though the execution happens locally.
-In the command line we pass the following argument:
+### Contexto
+Pode ser rodado localmente `local` (usa o Chrome) ou `remote` (nos Docker containers). O valor default é `remote`, para rodar `local` a propriedade `context` precisa ser alterada para `local`. o `docker-compose` e requisito para toda a execução mesmo localmente pode ser executado pela linha de comando com o seguinte comando.
+
 ```
 ./gradlew test -Dcontext=local
 ```
 
-### Browser
-If we run remotely, we have the option of running in a Firefox or a Chrome browser. The default value is `firefox`, but for `chrome` the `browser` property should be set as `chrome`.
-In the command line we pass the following argument:
-```
-./gradlew test -Dbrowser=chrome
-```
-
-### Parallel
-The project is configured to run in parallel by default. The default `threads count` for parallel executions are `10`. We can either change the thread count to `1` and execute them sequentially, or even increase the default number if necessary. In the command line we pass the following argument with the `thread count` wanted:
+### Paralelo
+O projeto esta por default configurado para rodar em paralelo. O `threads count` para execuções em paralelo são `10`
+Podemos mudar para `1` para rodar em sequencia ou aumentar o `thread count` com os comandos abaixo:
 ```
 ./gradlew test -Ddataproviderthreadcount="1"
 ./gradlew test -Ddataproviderthreadcount="20"
 ```
 
-### Tags
-All the scenarios are executed unless we specify the tag group that we want to execute. In the command line, we pass the following argument with the tag(s):
+### Localmente
+No `application.yml` substitua a propriedade `context` to `local`.
+
+* Right-click no feature file e selecione `Run 'Feature: login'`; ou
+* Right-click no CucumberRunner.java file e selecione `Run 'CucumberRunner'`.
+
+
+### Remote (Kubernetes - Containerd - Minikube) 
+No arquivo `application.yml` a propriedade `context` e `remote`.
+
+Minikube, Kubectl and Docker já instalados na máquina.
+
+Criando e iniciando os nodos para teste atráves do terminal:
+
+Iniciando o Minikube
+
+    minikube start
+
+Mudando o runtime de containers do Minikube para o Containerd
+
+    minikube start --container-runtime=containerd --vm=true
+
+Mudando o gerenciador de containers do Minikube para o Docker
+
+    minikube start --container-runtime=docker --vm=true
+
+Verificando o Dashboard do Kubernetes
+
+    minikube dashboard 
+
+Os comandos abaxo devem ser executados pelo terminal na pasta `automatizado-gzh/src/test/resources`
+
+Deploy Selenium Hub no POD do Kubernetes
+
+    kubectl create -f selenium-hub-deployment.yaml
+
+Deploy o Kubernetes Service
+
+    kubectl create -f selenium-hub-svc.yaml
+
+Deploy Selenium Chrome Container no Pod
+
+    kubectl create -f selenium-node-chrome-deployment.yaml
+
+Encontrando a URl do Selenium Grid Console, selecione o primeiro ip com a porta para abrir o console no browser
+
+    minikube service selenium-hub --url
+
+Deletando os serviços selenium-hub, service e nodes do Kubernetes
+
+    kubectl delete -f selenium-hub-deployment.yaml
+    kubectl delete -f selenium-hub-svc.yaml
+    kubectl delete -f selenium-node-chrome-deployment.yaml
+    Check Kubernetes Dashboard
+
+Parando o Minikube
+
+    minikube stop
+
+Deletando o Minikube
+
+    minikube delete
+
+### Remote (Docker) `Deprecated`
+No arquivo `application.yml` a propriedade `context` e `remote`.
+
+Execute o comando `up` para rodar os containers do docker executando o comando:
 ```
-./gradlew test -Dcucumber.filter.tags="@smoke"
+docker-compose up -d --scale firefox=2 --scale chrome=2 --scale edge=2
 ```
 
-## Running Through IntelliJ
-You can also execute the test scenarios through IntelliJ and there are multiple execution options.
+* Right-click no feature file e selecione `Run 'Feature: login'`; ou
+* Right-click no CucumberRunner.java file e selecione `Run 'CucumberRunner'`.
 
-### Locally
-In the `application.yml` file change the property `context` to `local`.
-
-* Right-click on the feature file and select `Run 'Feature: login'`; or
-* Right-click on the CucumberRunner.java file and select `Run 'CucumberRunner'`.
-
-### Remote (Docker)
-In the `application.yml` file make sure the property `context` is `remote`.
-
-Bring the docker containers `up` by executing the command:
-```
-docker-compose up -d --scale firefox=2 --scale chrome=2
-```
-
-* Right-click on the feature file and select `Run 'Feature: login'`; or
-* Right-click on the CucumberRunner.java file and select `Run 'CucumberRunner'`.
-
-Bring the docker containers `down` after the test is done by executing the command:
+Deligue o container docker depois do teste executando o comando:
 ```
 docker-compose down
 ```
+
+### Acompanhar execução no container
+É possivel verificar a execução do teste dentro do container visualmente.
+* Para acompanhar visualmente a execução dos testes, é necessario acessar a sessão do container via URL do selenium Grid;
+* Para acessar a tela do container é necessário clicar no ícone da "camera" o selenium vai solicitar uma senha `pass: secret`;
+```
+URL: http://localhost:4444/ui/index.html#/sessions
+```
+
+

@@ -1,0 +1,17 @@
+image: docker:latest
+services:
+  - name: docker:dind
+    #entrypoint: ["dockerd-entrypoint.sh"]
+    command: ["--max-concurrent-downloads", "6"]
+
+stages:
+  - test
+
+B2C:
+  stage: test
+  before_script:
+    - apk add --no-cache openjdk11
+  script:
+    - docker-compose up --build --remove-orphans
+    - ./gradlew test -Dcucumber.filter.tags="@b2c"
+    - docker-compose down
