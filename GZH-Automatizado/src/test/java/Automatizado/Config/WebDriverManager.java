@@ -37,10 +37,11 @@ public class WebDriverManager {
 
     try
     {
+      //Endereço para execuçao no docker
       ADDRESS = "http://127.0.0.1";
       SELENIUM_PORT = "4444";
     }catch(Exception e){
-
+      //Endereço para execuçao no containerd via kubernetes
       ADDRESS = "http://192.168.49.2";
       SELENIUM_PORT = "31433";
     }
