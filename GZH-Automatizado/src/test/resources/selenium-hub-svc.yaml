@@ -15,6 +15,9 @@ spec:
   - port: 4442
     targetPort: 4442
     name: port2
+  - port: 4445
+    targetPort: 4445
+    name: port3
   selector:
     app: selenium-hub
   type: NodePort

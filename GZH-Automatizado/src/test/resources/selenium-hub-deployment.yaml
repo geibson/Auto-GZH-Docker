@@ -15,25 +15,25 @@ spec:
         app: selenium-hub
     spec:
       containers:
-      - name: selenium-hub
-        image: selenium/hub:4.1.2-20220131
-        ports:
-          - containerPort: 4444
-          - containerPort: 4443
-          - containerPort: 4442
-        resources:
-          limits:
-            memory: "1000Mi"
-            cpu: ".5"
-        livenessProbe:
-          httpGet:
-            path: /wd/hub/status
-            port: 4444
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
-        readinessProbe:
-          httpGet:
-            path: /wd/hub/status
-            port: 4444
-          initialDelaySeconds: 30
-          timeoutSeconds: 5
+        - name: selenium-hub
+          image: 'selenium/hub'
+          ports:
+            - containerPort: 4444
+            - containerPort: 4443
+            - containerPort: 4442
+          resources:
+            limits:
+              memory: 1000Mi
+              cpu: '.5'
+          livenessProbe:
+            httpGet:
+              path: /wd/hub/status
+              port: 4444
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /wd/hub/status
+              port: 4444
+            initialDelaySeconds: 30
+            timeoutSeconds: 5

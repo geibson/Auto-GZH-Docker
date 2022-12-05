@@ -1,4 +1,4 @@
-apiVersion: apps/v1
+apiVersion: "apps/v1"
 kind: Deployment
 metadata:
   name: selenium-node-chrome
@@ -34,7 +34,7 @@ spec:
           - name: SE_EVENT_BUS_PUBLISH_PORT
             value: "4442"
           - name: SE_NODE_MAX_SESSIONS
-            value: "5"
+            value: "10"
         resources:
           limits:
             memory: "1000Mi"

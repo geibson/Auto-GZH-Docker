@@ -2,6 +2,7 @@ package Automatizado.Config;
 
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -28,7 +29,7 @@ public class WebDriverManager {
   @Bean
   @Scope("cucumber-glue")
   public WebDriver webDriverFactory() throws IOException {
-    return properties.getContext().equalsIgnoreCase(CONTEXT) ? new FirefoxDriver()
+    return properties.getContext().equalsIgnoreCase(CONTEXT) ? new ChromeDriver()
             : getRemoteWebDriver(properties.getBrowser());
   }
 
@@ -37,13 +38,12 @@ public class WebDriverManager {
 
     try
     {
-      //Endereço para execuçao no docker
       ADDRESS = "http://127.0.0.1";
       SELENIUM_PORT = "4444";
     }catch(Exception e){
-      //Endereço para execuçao no containerd via kubernetes
-      ADDRESS = "http://192.168.49.2";
-      SELENIUM_PORT = "31433";
+
+      ADDRESS = "http://172.17.0.2";
+      SELENIUM_PORT = "4444";
     }
     String remote = String.format("%s:%s/wd/hub", ADDRESS, SELENIUM_PORT);
     if (browser.equalsIgnoreCase(CHROME)) {

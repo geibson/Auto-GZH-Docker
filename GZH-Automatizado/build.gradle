@@ -108,10 +108,10 @@ test.finalizedBy generateReport
 
 //dockerCompose.isRequiredBy test
 
-dockerCompose {
-    useComposeFiles = ['compose.yaml']
-    scale = [chrome: 1]
-}
+//dockerCompose {
+//    useComposeFiles = ['compose.yaml']
+//    scale = [chrome: 1]
+//}
 
 
 sourceCompatibility = 11
