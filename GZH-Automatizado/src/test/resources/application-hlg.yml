@@ -9,4 +9,4 @@ ambiente: HLG
 
 logging:
   level:
-    ROOT: ERROR
+    ROOT: ERROR'

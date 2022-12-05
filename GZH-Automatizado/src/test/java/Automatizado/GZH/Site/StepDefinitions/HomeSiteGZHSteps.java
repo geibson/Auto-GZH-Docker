@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import static Automatizado.Config.AdditionalFunctions.scrollingToBottomOfPage;
 import static Automatizado.Config.MenuFunctions.clickEditorialMenu;
 import static Automatizado.Config.MenuFunctions.clickMenu;
+import static Automatizado.GZH.Site.Pages.EditorialPage.validEditorialFields;
+import static Automatizado.GZH.Site.Pages.EditorialPage.validEditorialUrl;
 import static Automatizado.GZH.Site.Pages.HomePage.ClickAndValidateRandomEditorialMenu;
 import static Automatizado.GZH.Site.Pages.HomePage.getTitlePage;
 
@@ -76,5 +78,11 @@ public class HomeSiteGZHSteps {
         ClickAndValidateRandomEditorialMenu();
     }
 
+    @Entao("Verifico que estou na {string}")
+    public void validateTabelsEditorial(String editorial) {
+        validEditorialUrl(editorial);
+        validEditorialFields(editorial);
+        scrollingToBottomOfPage();
+    }
 }
 

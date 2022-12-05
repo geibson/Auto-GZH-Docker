@@ -4,29 +4,22 @@
 Funcionalidade: Navegação no Site GZH
   Esse documento testa todos os cenários de navegação do site GZH
 
-  # Cenarios de Navegação Geral do GZH
+#Entra na noticia destaque das editorias que estão na tabela da linha 26
   @navegacao @editoria @tdc
-#Entra em cada editoria que esta no menu do site e verificar se todas estão abrindo
-  Cenario: Acessar todas as editorias que estao no menu e validar se estão abrindo
-  - Cenario abri cada editoria que esta no menu do site e verificar se todas estao abrindo
-    Dado Que estou no site GZH
-    Quando Clico no menu do site
-    Entao Clico e valido cada editoria
-    E Finalizo a minha navegacao
-
-
-#Clicar no exibir mais dos editorias que estão na tabela da linha 38
-  @navegacao @editoria @tdc
-  Esquema do Cenário: Clicar no "exibir mais"
-  -Clicar no exibir mais dos editorias que estão na tabela
+  Esquema do Cenário: Entrar na materia destaque dentro da editoria
+  -Entra na noticia destaque das editorias que estão na tabela
     Dado Que estou no site GZH
     Quando Clico no menu do site
     E Seleciono uma "<editoria>" para navegar
-    Entao Finalizo a minha navegacao
+    Entao Verifico que estou na "<editoria>"
+    E Finalizo a minha navegacao
     Exemplos:
     -Nomes das editorias que vai ser testada
-      | editoria |
-      | esportes |
+      | editoria     |
+      | Porto Alegre |
+      #| Esportes     |
+
+
 
 
   @navegacao @home @tdc
@@ -41,6 +34,5 @@ Funcionalidade: Navegação no Site GZH
     Exemplos:
     -Usuario e senha que vai ser usado para logar
       | termo                     |
-      | teste automatizado6656565 |
       | teste automatizado        |
 

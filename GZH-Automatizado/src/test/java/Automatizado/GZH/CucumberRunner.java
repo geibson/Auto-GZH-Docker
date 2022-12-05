@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
 @RunWith(Cucumber.class)
 @CucumberOptions(
     glue = {"Automatizado/GZH/Site/StepDefinitions","Automatizado/EDIT/StepDefinitions"},
-    tags = "@b2c",
+    //tags = "@b2c @tdc",
     features = "src/test/resources/features",
         plugin = {
         "pretty",

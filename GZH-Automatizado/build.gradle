@@ -106,11 +106,11 @@ task generateReport() {
 
 test.finalizedBy generateReport
 
-dockerCompose.isRequiredBy test
+//dockerCompose.isRequiredBy test
 
 dockerCompose {
     useComposeFiles = ['compose.yaml']
-    scale = [chrome: 2]
+    scale = [chrome: 1]
 }
 
 
